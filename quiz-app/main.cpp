@@ -3,10 +3,20 @@
 #include <sstream>
 using namespace std;
 
+// Check for valid input option a, b, c, d, otherwise keep taking input
 bool check_options(char ch){
     if(ch=='a'||ch=='A'||ch=='b'||ch=='B'||ch=='c'||ch=='C'||ch=='d'||ch=='D') return true;
     else {
-        cout<<"Enter a valid input from option a, b, c, d!"<<endl;
+        cout<<"-> Enter a valid input from option a, b, c, d!"<<endl;
+        return false;
+    }
+}
+
+// To make sure quiz starts with a 's'
+bool start_quiz(char start){
+    if(start=='s'||start=='S') return true;
+    else {
+        cout<<"-> Press 's' to start the quiz."<<endl;
         return false;
     }
 }
@@ -25,13 +35,24 @@ int playQuiz(){
     cin>>c;
     char option;
     int score = 0;
+    while(start_quiz(c)==false) cin>>c;
     if(c=='s'|| c=='S'){
         cout<<"Q1. what's the capital of India?"<<endl;
         cout<<"(a) Delhi    (b) Mumbai     (c) Kolkata      (d) Chennai"<<endl;
         cin>>option;
         while(check_options(option)==false) cin>>option;
         if(option=='a'||option=='A') score=score+3;
-        else score--;
+        else { // needs to be in bracket or next question won't load
+            score--;
+        }
+        cout<<"Q2.Correct syntax of including user defined header files in C++ is?"<<endl;
+        cout<<"(a) #include [userdefined]    (b) #include \"userdefined\"     (c) #include <userdefined.h>      (d) #include <userdefined>"<<endl;
+        cin>>option;
+        while(check_options(option)==false) cin>>option;
+        if(option=='b'||option=='B') score=score+3;
+        else {
+            score--
+        ;}
     }
     else {
         cout<<"-> Press 's' to start the quiz."<<endl;
@@ -41,7 +62,25 @@ int playQuiz(){
 
 int main(){
     int result = playQuiz();
-    cout<<"You scored "<<result<<" on this quiz!";
+    char playAgain;
+    cout<<"You scored "<<result<<" on this quiz!"<<endl;
+    if(result>=4){
+        cout<<"You passed! \nDo you want to retake the quiz?\nPress y to retake and n to quit."<<endl;
+        cin>>playAgain;
+        if(playAgain=='y'||playAgain=='Y') playQuiz();
+        else {
+            cout<<"Thank you for playing the Quiz!"<<endl;
+        }
+    }
+    else {
+        cout<<"You failed! \nDo you want to retake the quiz?\nPress y to retake and n to quit."<<endl;
+        cin>>playAgain;
+        if(playAgain=='y'||playAgain=='Y') playQuiz();
+        else {
+            cout<<"Thank you for playing the Quiz!"<<endl;
+        }
+
+    }
 
     return 0;
 }
