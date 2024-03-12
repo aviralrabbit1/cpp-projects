@@ -61,21 +61,33 @@ int playQuiz(){
 }
 
 int main(){
+    play:
+    int playQuiz(void);
     int result = playQuiz();
     char playAgain;
-    cout<<"You scored "<<result<<" on this quiz!"<<endl;
+    /*  Also can be looped as
+    while(playAgain=='y'){
+        loop statements, y or n.
+    }    
+    */
     if(result>=4){
+        cout<<"You scored "<<result<<" on this quiz!"<<endl;
         cout<<"You passed! \nDo you want to retake the quiz?\nPress y to retake and n to quit."<<endl;
         cin>>playAgain;
-        if(playAgain=='y'||playAgain=='Y') playQuiz();
+        if(playAgain=='y'||playAgain=='Y') {
+            goto play;
+        }
         else {
             cout<<"Thank you for playing the Quiz!"<<endl;
         }
     }
     else {
+        cout<<"You scored "<<result<<" on this quiz!"<<endl;
         cout<<"You failed! \nDo you want to retake the quiz?\nPress y to retake and n to quit."<<endl;
         cin>>playAgain;
-        if(playAgain=='y'||playAgain=='Y') playQuiz();
+        if(playAgain=='y'||playAgain=='Y') {
+            goto play;
+        }
         else {
             cout<<"Thank you for playing the Quiz!"<<endl;
         }
